@@ -16,6 +16,11 @@
             --border-style: 2px solid #e0d0c1;
         }
 
+        /* 修正所有元件的尺寸計算方式 */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: var(--bg-color);
             font-family: 'Zen Maru Gothic', 'Microsoft JhengHei', sans-serif;
@@ -29,11 +34,9 @@
             width: 100%;
             max-width: 380px;
             background: #ffffff;
-            border-radius: 30px; /* 超圓潤邊角 */
+            border-radius: 30px;/* 超圓潤邊角 */
             box-shadow: 0 10px 25px rgba(224, 208, 193, 0.4);
             padding: 25px;
-            position: relative;
-            overflow: hidden;
         }
 
         /* 裝飾性的小圓點，增加和風感 */
@@ -53,28 +56,35 @@
             color: #a67c7c;
             margin-bottom: 25px;
             background: linear-gradient(transparent 60%, var(--main-blue) 0%);
-            display: inline-block;
-            width: 100%;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .input-group { margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; width: 100%; }
         label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 15px; }
         
+        /* 統一所有輸入框樣式，防止日期欄位跑掉 */
         input {
             width: 100%;
-            padding: 12px 15px;
-            box-sizing: border-box;
+            height: 45px; /* 固定高度防止擠壓 */
+            padding: 0 15px;
             border: var(--border-style);
             border-radius: 15px;
             font-size: 15px;
             outline: none;
             background-color: #fff;
             color: var(--text-color);
+            font-family: inherit; /* 確保字體一致 */
+            display: block;
         }
+
+        input:focus { border-color: #f2b6c1; }
 
         button {
             width: 100%;
-            padding: 15px;
+            height: 50px;
             background-color: var(--main-pink);
             border: none;
             border-radius: 50px;
@@ -83,7 +93,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            margin: 10px 0;
+            margin-top: 10px;
             box-shadow: 0 4px 0px #f2b6c1;
         }
 
@@ -92,7 +102,7 @@
         .divider-dashed {
             border: none;
             border-top: 2px dashed #e0d0c1;
-            margin: 20px 0;
+            margin: 25px 0;
             height: 0;
         }
 
@@ -101,7 +111,6 @@
             border-radius: 20px;
             padding: 20px;
             text-align: center;
-            margin-top: 10px;
         }
 
         #remainingBalance { font-size: 30px; font-weight: 700; color: #8c7356; }
@@ -112,6 +121,7 @@
         .history-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             background: #fafafa;
             border-bottom: 1px solid #eee;
             padding: 12px 8px;
@@ -123,6 +133,7 @@
             border: 1px solid #e0d0c1;
             color: #ccc;
             font-size: 11px;
+            height: auto;
             padding: 5px 10px;
             border-radius: 10px;
             box-shadow: none;
@@ -156,7 +167,7 @@
     <div class="divider-dashed"></div>
 
     <div class="balance-result">
-        <div style="font-size: 14px; opacity: 0.8;">目前餘額</div>
+        <div style="font-size: 14px; opacity: 0.8; margin-bottom:5px;">目前餘額</div>
         <div id="remainingBalance">$ 0</div>
     </div>
 
@@ -165,15 +176,12 @@
         <div id="historyList"></div>
     </div>
 
-    <!-- 清除所有資料的按鈕，以備不時之需 -->
     <center><button class="btn-clear" onclick="clearAll()">清除所有資料</button></center>
 </div>
 
 <script>
     let records = [];
-    let totalBudget = 0;
 
-    // 頁面載入時，讀取舊資料
     window.onload = function() {
         const savedRecords = localStorage.getItem('my_records');
         const savedTotal = localStorage.getItem('my_total');
@@ -183,8 +191,7 @@
             renderHistory();
         }
         if (savedTotal) {
-            totalBudget = parseFloat(savedTotal);
-            document.getElementById('totalAmount').value = totalBudget;
+            document.getElementById('totalAmount').value = savedTotal;
         }
         
         updateBalanceDisplay();
@@ -205,30 +212,24 @@
             return;
         }
 
-        // 更新數據
-        totalBudget = totalInput;
         records.push({ date, amount });
-
-        // 存檔到瀏覽器
         saveData();
-
-        // 介面更新
         updateBalanceDisplay();
         renderHistory();
         document.getElementById('expAmount').value = "";
     }
 
     function saveData() {
-        const totalInput = document.getElementById('totalAmount').value;
+        const totalVal = document.getElementById('totalAmount').value;
         localStorage.setItem('my_records', JSON.stringify(records));
-        localStorage.setItem('my_total', totalInput);
+        localStorage.setItem('my_total', totalVal);
         updateBalanceDisplay();
     }
 
     function updateBalanceDisplay() {
-        const totalInput = parseFloat(document.getElementById('totalAmount').value) || 0;
+        const totalVal = parseFloat(document.getElementById('totalAmount').value) || 0;
         const totalSpent = records.reduce((sum, record) => sum + record.amount, 0);
-        const remaining = totalInput - totalSpent;
+        const remaining = totalVal - totalSpent;
         document.getElementById('remainingBalance').innerText = `$ ${remaining.toLocaleString()}`;
     }
 
@@ -248,7 +249,6 @@
         if (confirm("確定要刪除所有紀錄嗎？(｡ŏ﹏ŏ)")) {
             localStorage.clear();
             records = [];
-            totalBudget = 0;
             document.getElementById('totalAmount').value = "";
             document.getElementById('remainingBalance').innerText = "$ 0";
             renderHistory();
