@@ -250,7 +250,7 @@
     <div class="divider-dashed"></div>
 
     <div class="balance-result">
-        <div class="balance-label">結算後剩餘</div>
+        <div class="balance-label">剩餘</div>
         <div id="remainingBalance">$ 0</div>
     </div>
 
@@ -349,7 +349,7 @@
         const totalVal = parseFloat(document.getElementById('totalAmount').value) || 0;
         const totalSpent = records.reduce((sum, record) => sum + record.amount, 0);
         const remaining = totalVal - totalSpent;
-        document.getElementById('remainingBalance').innerText = `¥ ${remaining.toLocaleString()}`;
+        document.getElementById('remainingBalance').innerText = `$ ${remaining.toLocaleString()}`;
     }
 
     function renderHistory() {
@@ -366,7 +366,7 @@
             item.innerHTML = `
                 <div class="history-info">
                     <span class="history-date">📅 ${record.date}</span>
-                    <span class="history-amount">- ¥${record.amount.toLocaleString()}</span>
+                    <span class="history-amount">- $${record.amount.toLocaleString()}</span>
                 </div>
                 <div class="history-actions">
                     <button class="btn-edit" onclick="editRecord(${i})">✏️ 修改</button>
