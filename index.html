@@ -245,13 +245,13 @@
         <input type="number" id="expAmount" placeholder="今天花多少？">
     </div>
 
-    <button id="submitBtn" onclick="calculate()">確認新增紀錄 ✨</button>
+    <button id="submitBtn" onclick="calculate()">確認新增 ✨</button>
 
     <div class="divider-dashed"></div>
 
     <div class="balance-result">
         <div class="balance-label">結算後剩餘</div>
-        <div id="remainingBalance">¥ 0</div>
+        <div id="remainingBalance">$ 0</div>
     </div>
 
     <div class="history-section">
@@ -383,7 +383,7 @@
             editIndex = -1;
             document.getElementById('submitBtn').innerHTML = "確認新增紀錄 ✨";
             document.getElementById('totalAmount').value = "";
-            document.getElementById('remainingBalance').innerText = "¥ 0";
+            document.getElementById('remainingBalance').innerText = "$ 0";
             renderHistory();
         }
     }
