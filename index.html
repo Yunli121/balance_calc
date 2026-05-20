@@ -7,17 +7,19 @@
     <!-- 引入日系圓體字 -->
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <style>
-     :root {
+        :root {
             --bg-color: #fff9f5;      /* 溫潤的米白背景 */
             --main-pink: #ffdae0;     /* 櫻花粉 */
             --main-blue: #dcf2f9;     /* 汽水藍 */
             --main-yellow: #fff4d1;   /* 奶油黃 */
-            --text-color: #6d5b5b;    /* 暖咖啡色文字，比純黑柔和 */
+            --text-color: #6d5b5b;    /* 暖咖啡色文字 */
             --border-style: 2px solid #e0d0c1;
-           }
+        }
 
-        /* 修正所有元件的尺寸計算方式 */
-        * { box-sizing: border-box; }
+        /* 確保所有尺寸計算包含邊框 */
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             background-color: var(--bg-color);
@@ -30,13 +32,14 @@
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             background: #ffffff;
-            border-radius: 30px;/* 超圓潤邊角 */
-            box-shadow: 0 10px 30px rgba(224, 208, 193, 0.3);
-            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(224, 208, 193, 0.4);
+            padding: 25px;
+            position: relative;
         }
-        /* 裝飾性的小圓點，增加和風感 */
+
         .container::before {
             content: "● ● ●";
             position: absolute;
@@ -49,109 +52,176 @@
 
         h2 {
             text-align: center;
-            font-size: 24px;
-            color: #8c7373;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            font-size: 22px;
+            color: #a67c7c;
+            margin-bottom: 25px;
+            background: linear-gradient(transparent 60%, var(--main-blue) 0%);
+            display: inline-block;
+            width: 100%;
         }
 
-        .input-group { margin-bottom: 25px; width: 100%; }
-        
-        label { 
-            display: flex; 
-            align-items: center; 
-            font-weight: 700; 
-            margin-bottom: 10px; 
-            font-size: 16px; 
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        label::before {
-            content: "✿";
-            margin-right: 8px;
-            font-size: 14px;
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+            padding-left: 5px;
         }
-        
-        /* 統一所有輸入框樣式，特別針對日期修正 */
+
         input {
             width: 100%;
-            height: 55px; /* 稍微加高，跟截圖比例更接近 */
-            padding: 0 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            font-size: 16px;
+            height: 48px;
+            padding: 0 15px;
+            border: var(--border-style);
+            border-radius: 15px;
+            font-size: 15px;
             outline: none;
             background-color: #fff;
             color: var(--text-color);
+            transition: border 0.3s;
             font-family: inherit;
             display: block;
-            appearance: none; /* 取消行動裝置預設樣式 */
             -webkit-appearance: none;
+            appearance: none;
         }
 
-        /* 專門修正日期欄位的文字垂直置中 */
         input[type="date"] {
-            line-height: 51px; /* 扣除上下邊框的高度 */
+            line-height: 44px;
         }
 
-        input::placeholder { color: #ccc; }
-        input:focus { border-color: var(--main-pink); }
+        input:focus {
+            border-color: #ffdae0;
+        }
 
-        /* 按鈕文字完全置中 */
-        button.add-btn {
+        button {
             width: 100%;
-            height: 65px;
+            height: 52px;
             background-color: var(--main-pink);
             border: none;
             border-radius: 50px;
-            color: #8c4a4a;
+            color: #a65d6a;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
+            transition: all 0.2s;
+            margin: 10px 0;
+            box-shadow: 0 4px 0px #f2b6c1;
             display: flex;
             align-items: center;
-            justify-content: center; /* 水平置中 */
-            gap: 5px;
-            transition: all 0.2s;
-            margin-top: 10px;
-            box-shadow: 0 4px 0px #eec0c4;
+            justify-content: center;
+            gap: 6px;
         }
 
-        button.add-btn:active { transform: translateY(3px); box-shadow: 0 1px 0px #eec0c4; }
+        button:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0px #f2b6c1;
+        }
 
         .divider-dashed {
             border: none;
-            border-top: 3px dashed #eee;
-            margin: 30px 0;
+            border-top: 2px dashed #e0d0c1;
+            margin: 25px 0;
+            height: 0;
         }
 
         .balance-result {
             background: var(--main-yellow);
-            border-radius: 25px;
+            border-radius: 20px;
             padding: 20px;
             text-align: center;
+            margin-top: 10px;
         }
 
-        #remainingBalance { font-size: 32px; font-weight: 700; color: #8c7356; }
+        .balance-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        #remainingBalance {
+            font-size: 30px;
+            font-weight: 700;
+            color: #8c7356;
+        }
+
+        .history-section {
+            margin-top: 30px;
+        }
+
+        h3 {
+            font-size: 16px;
+            border-left: 5px solid var(--main-blue);
+            padding-left: 10px;
+            margin-bottom: 15px;
+        }
 
         .history-item {
             display: flex;
             justify-content: space-between;
-            padding: 15px 10px;
-            border-bottom: 1px solid #f5f5f5;
+            align-items: center;
+            background: #fafafa;
+            border-bottom: 1px solid #eee;
+            padding: 12px 8px;
+            font-size: 14px;
+        }
+
+        .history-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .history-date {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .history-amount {
+            color: #d68a8a;
+            font-weight: 700;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* 可愛的小修改按鈕 */
+        .btn-edit {
+            background-color: var(--main-blue);
+            color: #4a7c8c;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            height: auto;
+            width: auto;
+            margin: 0;
+            box-shadow: 0 2px 0px #b3dae5;
+        }
+        .btn-edit:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 0px #b3dae5;
         }
 
         .btn-clear {
             background: none;
-            border: 1px solid #ddd;
+            border: 1px solid #e0d0c1;
             color: #bbb;
-            font-size: 12px;
-            padding: 5px 15px;
-            border-radius: 12px;
-            cursor: pointer;
+            font-size: 11px;
+            height: auto;
+            padding: 5px 10px;
+            border-radius: 10px;
+            box-shadow: none;
+            width: auto;
             margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -175,17 +245,17 @@
         <input type="number" id="expAmount" placeholder="今天花多少？">
     </div>
 
-    <button class="add-btn" onclick="calculate()">確認新增 ✨</button>
+    <button id="submitBtn" onclick="calculate()">確認新增紀錄 ✨</button>
 
     <div class="divider-dashed"></div>
 
     <div class="balance-result">
-        <div style="font-size: 14px; margin-bottom:5px;">目前餘額</div>
-        <div id="remainingBalance">$ 0</div>
+        <div class="balance-label">結算後剩餘</div>
+        <div id="remainingBalance">¥ 0</div>
     </div>
 
-    <div style="margin-top: 30px;">
-        <h3 style="font-size: 16px;">歷史小筆記</h3>
+    <div class="history-section">
+        <h3>歷史小筆記</h3>
         <div id="historyList"></div>
     </div>
 
@@ -194,27 +264,78 @@
 
 <script>
     let records = [];
+    let editIndex = -1; // 追蹤目前正在修改哪一筆紀錄，-1 代表處於常規的新增狀態
 
     window.onload = function() {
         const savedRecords = localStorage.getItem('my_records');
         const savedTotal = localStorage.getItem('my_total');
-        if (savedRecords) { records = JSON.parse(savedRecords); renderHistory(); }
-        if (savedTotal) { document.getElementById('totalAmount').value = savedTotal; }
+
+        if (savedRecords) {
+            records = JSON.parse(savedRecords);
+            renderHistory();
+        }
+        if (savedTotal) {
+            document.getElementById('totalAmount').value = savedTotal;
+        }
+        
         updateBalanceDisplay();
         document.getElementById('expDate').valueAsDate = new Date();
     };
 
     function calculate() {
-        const totalInput = parseFloat(document.getElementById('totalAmount').value);
+        const total = parseFloat(document.getElementById('totalAmount').value);
         const amount = parseFloat(document.getElementById('expAmount').value);
         const date = document.getElementById('expDate').value;
-        if (isNaN(totalInput)) { alert("請先填寫總金額喔！(๑•́ ₃ •̀๑)"); return; }
-        if (isNaN(amount) || !date) { alert("日期或金額也要填寫唷！"); return; }
-        records.push({ date, amount });
+
+        if (isNaN(total)) {
+            alert("請先填寫總金額喔！(๑•́ ₃ •̀๑)");
+            return;
+        }
+        if (isNaN(amount) || !date) {
+            alert("日期或金額也要填寫唷！");
+            return;
+        }
+
+        if (editIndex === -1) {
+            // 正常狀態：新增紀錄
+            records.push({ date, amount });
+        } else {
+            // 修改狀態：覆蓋舊有紀錄
+            records[editIndex] = { date, amount };
+            editIndex = -1; // 修改完後重設回新增狀態
+            document.getElementById('submitBtn').innerHTML = "確認新增紀錄 ✨";
+            document.getElementById('submitBtn').style.backgroundColor = "var(--main-pink)";
+            document.getElementById('submitBtn').style.color = "#a65d6a";
+            document.getElementById('submitBtn').style.boxShadow = "0 4px 0px #f2b6c1";
+        }
+
         saveData();
         updateBalanceDisplay();
         renderHistory();
+        
+        // 清空輸入框並回復今日日期
         document.getElementById('expAmount').value = "";
+        document.getElementById('expDate').valueAsDate = new Date();
+    }
+
+    // 觸發修改模式
+    function editRecord(index) {
+        editIndex = index;
+        const record = records[index];
+        
+        // 把舊資料填回輸入框
+        document.getElementById('expDate').value = record.date;
+        document.getElementById('expAmount').value = record.amount;
+        
+        // 讓上方按鈕變成汽水藍提示正在「修改中」
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = "儲存修改內容 ✏️";
+        submitBtn.style.backgroundColor = "var(--main-blue)";
+        submitBtn.style.color = "#4a7c8c";
+        submitBtn.style.boxShadow = "0 4px 0px #b3dae5";
+        
+        // 自動捲動到上方方便填寫
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function saveData() {
@@ -228,26 +349,41 @@
         const totalVal = parseFloat(document.getElementById('totalAmount').value) || 0;
         const totalSpent = records.reduce((sum, record) => sum + record.amount, 0);
         const remaining = totalVal - totalSpent;
-        document.getElementById('remainingBalance').innerText = `$ ${remaining.toLocaleString()}`;
+        document.getElementById('remainingBalance').innerText = `¥ ${remaining.toLocaleString()}`;
     }
 
     function renderHistory() {
         const list = document.getElementById('historyList');
         list.innerHTML = "";
-        [...records].reverse().forEach((record) => {
+        
+        // 這裡我們需要保留原本的 index，所以用原陣列跑 loop
+        // 但為了讓最新的在上面，我們用一個反向的迴圈來渲染
+        for (let i = records.length - 1; i >= 0; i--) {
+            const record = records[i];
             const item = document.createElement('div');
             item.className = 'history-item';
-            item.innerHTML = `<span>📅 ${record.date}</span> <span style="font-weight:bold; color:#d68a8a;">- $${record.amount.toLocaleString()}</span>`;
+            
+            item.innerHTML = `
+                <div class="history-info">
+                    <span class="history-date">📅 ${record.date}</span>
+                    <span class="history-amount">- ¥${record.amount.toLocaleString()}</span>
+                </div>
+                <div class="history-actions">
+                    <button class="btn-edit" onclick="editRecord(${i})">✏️ 修改</button>
+                </div>
+            `;
             list.appendChild(item);
-        });
+        }
     }
 
     function clearAll() {
         if (confirm("確定要刪除所有紀錄嗎？(｡ŏ﹏ŏ)")) {
             localStorage.clear();
             records = [];
+            editIndex = -1;
+            document.getElementById('submitBtn').innerHTML = "確認新增紀錄 ✨";
             document.getElementById('totalAmount').value = "";
-            document.getElementById('remainingBalance').innerText = "$ 0";
+            document.getElementById('remainingBalance').innerText = "¥ 0";
             renderHistory();
         }
     }
